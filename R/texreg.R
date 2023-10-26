@@ -120,6 +120,7 @@ htmlreg <- function(l,
                     leading.zero = TRUE,
                     star.symbol = "&#42;",
                     symbol = "&middot;",
+                    se.span = TRUE,
                     override.coef = 0,
                     override.se = 0,
                     override.pvalues = 0,
@@ -1476,8 +1477,13 @@ matrixreg <- function(l,
   } else if (output.type[1] == "html") {
     neginfstring <- "-Inf"
     posinfstring <- "Inf"
-    se.prefix <- " ("
-    se.suffix <- ")"
+    if (se.span == TRUE) {
+      se.prefix <- " <span>("
+      se.suffix <- ")</span>"
+    } else {
+      se.prefix <- " ("
+      se.suffix <- ")"
+    }
     star.prefix <- paste0("<sup>")
     star.suffix <- "</sup>"
     dcolumn <- TRUE
@@ -1582,13 +1588,23 @@ matrixreg <- function(l,
             bold.pref <- ""
             bold.suff <- ""
           }
-          entry <- paste0(dollar,
-                          bold.pref,
-                          coeftostring(m[i, j], leading.zero, digits = digits),
-                          bold.suff,
-                          std,
-                          p,
-                          dollar)
+          if (se.span == TRUE) {
+            entry <- paste0(dollar,
+                            bold.pref,
+                            coeftostring(m[i, j], leading.zero, digits = digits),
+                            bold.suff,
+                            p,
+                            std,
+                            dollar)
+          } else {
+            entry <- paste0(dollar,
+                bold.pref,
+                coeftostring(m[i, j], leading.zero, digits = digits),
+                bold.suff,
+                std,
+                p,
+                dollar)
+          }
           output.matrix[i, k] <- entry
         }
         k <- k + 1
