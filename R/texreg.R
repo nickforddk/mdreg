@@ -121,6 +121,7 @@ htmlreg <- function(l,
                     star.symbol = "&#42;",
                     symbol = "&middot;",
                     se.span = TRUE,
+                    se.last = TRUE,
                     override.coef = 0,
                     override.se = 0,
                     override.pvalues = 0,
@@ -178,6 +179,7 @@ htmlreg <- function(l,
                              star.symbol = star.symbol,
                              symbol = symbol,
                              se.span = se.span,
+                             se.last = se.last,
                              override.coef = override.coef,
                              override.se = override.se,
                              override.pvalues = override.pvalues,
@@ -999,6 +1001,7 @@ matrixreg <- function(l,
                       star.symbol = "*",
                       symbol = ".",
                       se.span = FALSE,
+                      se.last = TRUE,
                       override.coef = 0,
                       override.se = 0,
                       override.pvalues = 0,
@@ -1048,13 +1051,13 @@ matrixreg <- function(l,
     for (i in 1:length(models)) {
       # replace markup in GOF names
       if (output.type[1] == "html") {
-        r <- paste0("<sup>2</sup>")
+        r <- paste0("<em>R<sup>2</sup></em>")
       } else if (output.type[1] == "ascii") {
-        r <- "^2"
+        r <- "R^2"
       } else {
         stop("'output.type' must be 'latex', 'html', or 'ascii'.")
       }
-      models[[i]]@gof.names <- gsub("\\$\\^2\\$", r, models[[i]]@gof.names)
+      models[[i]]@gof.names <- gsub("R\\$\\^2\\$", r, models[[i]]@gof.names)
       models[[i]]@gof.names <- gsub("\\\\ ", " ", models[[i]]@gof.names)
       models[[i]]@gof.names <- gsub("\\ ", " ", models[[i]]@gof.names)
 
@@ -1590,7 +1593,7 @@ matrixreg <- function(l,
             bold.pref <- ""
             bold.suff <- ""
           }
-          if (se.span == TRUE) {
+          if (se.last == TRUE) {
             entry <- paste0(dollar,
                             bold.pref,
                             coeftostring(m[i, j], leading.zero, digits = digits),
