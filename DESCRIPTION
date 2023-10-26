@@ -1,4 +1,4 @@
-Package: texreg
+Package: mdreg
 Version: 1.39.2
 Date: 2023-06-26
 Title: (NF version) Conversion of R Regression Output to LaTeX or HTML Tables
