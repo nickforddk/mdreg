@@ -1748,7 +1748,7 @@ matrixreg <- function(l,
     if (output.type[1] == "latex") {
       indentation <- "\\quad "
     } else if (output.type[1] == "html") {
-      indentation <- "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+      indentation <- "<span class='indent'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</span>;"
     } else {
       indentation <- "    "
     }
