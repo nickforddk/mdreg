@@ -1052,7 +1052,6 @@ matrixreg <- function(l,
       # replace markup in GOF names
       if (output.type[1] == "html") {
         r <- paste0("<em>R<sup>2</sup></em>")
-        models[[i]]@gof.names <- gsub("R^2", r, models[[i]]@gof.names) #manual correction
       } else if (output.type[1] == "ascii") {
         r <- "R^2"
       } else {
@@ -1299,6 +1298,9 @@ matrixreg <- function(l,
   colnames(gof.matrix) <- NULL
   if (output.type[1] == "latex") { # if LaTeX, replace underscores etc in GOF labels
     gof.matrix[, 1] <- names2latex(gof.matrix[, 1])
+  } else if (output.type[1] == "html") {
+    # if HTML, substitute "R^2" with "<em>R<sup>2</sup></em>"
+    gof.matrix[, 1] <- gsub("R\\^2", "<em>R<sup>2</sup></em>", gof.matrix[, 1])
   }
 
   # apply custom coefficient map using 'custom.coef.map' argument
