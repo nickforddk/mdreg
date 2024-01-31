@@ -253,8 +253,8 @@ htmlreg <- function(l,
   tabdef <- paste0(h.ind,
                    b.ind,
                    ifelse(isTRUE(inline.css),
-                          paste0("<table class=\"texreg\" style=\"", css_table.texreg, "\">\n"),
-                          paste0("<table class=\"texreg\">\n")))
+                          paste0("<table class=\"texreg table\" style=\"", css_table.texreg, "\">\n"),
+                          paste0("<table class=\"texreg table\">\n")))
 
   # set caption
   if (is.null(caption)) {
@@ -1052,6 +1052,7 @@ matrixreg <- function(l,
       # replace markup in GOF names
       if (output.type[1] == "html") {
         r <- paste0("<em>R<sup>2</sup></em>")
+        models[[i]]@gof.names <- gsub("R^2", r, models[[i]]@gof.names) #manual correction
       } else if (output.type[1] == "ascii") {
         r <- "R^2"
       } else {
@@ -4197,7 +4198,7 @@ get_stars_note <- function(stars = c(0.01, 0.05, 0.1),
       p_note <- paste0(symbols,
                        " p < ", st)
     } else if (output == "latex") {
-      p_note <- paste0("$^{",
+      p_note <- paste0("$^{", 
                        symbols,
                        "}p<",
                        st,
@@ -4205,10 +4206,10 @@ get_stars_note <- function(stars = c(0.01, 0.05, 0.1),
     } else if (output == "html") {
       p_note <- paste0("<sup>",
                        symbols,
-                       "</sup>p &lt; ",
+                       "</sup> <em>p</em> &lt; ",
                        st)
     }
-    p_note <- paste(p_note, collapse = "; ")
+    p_note <- paste(p_note, collapse = ", ")
   } else { # no stars supplied = empty note
     p_note <- ""
   }
