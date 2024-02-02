@@ -3363,7 +3363,7 @@ texreg <- function(l,
       note <- paste0("\\multicolumn{", length(mod.names),
                      "}{l}{\\", notesize, "{", snote, "}}")
     } else {
-      note <- paste0("\\", notesize, "{\\item ", snote, "}")
+      note <- paste0("\\item\\", notesize, "{", snote, "}")
     }
   } else if (custom.note == "") {
     note <- ""
@@ -3372,7 +3372,7 @@ texreg <- function(l,
       note <- paste0("\\multicolumn{", length(mod.names),
                      "}{l}{\\", notesize, "{", custom.note, "}}")
     } else {
-      note <- paste0("\\", notesize, "{", custom.note, "}")
+      note <- paste0("\\item\\", notesize, "{", custom.note, "}")
     }
     note <- gsub("%stars", snote, note, perl = TRUE)
   }
