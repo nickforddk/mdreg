@@ -3120,6 +3120,7 @@ texreg <- function(l,
                    no.margin = FALSE,
                    fontsize = NULL,
                    scalebox = NULL,
+                   resizebox = NULL,
                    float.pos = "",
                    ...) {
 
@@ -3177,6 +3178,18 @@ texreg <- function(l,
   if (isTRUE(longtable) && !is.null(scalebox)) {
     scalebox <- NULL
     warning(paste("'longtable' and 'scalebox' are not compatible. Setting scalebox = NULL."))
+  }
+
+  # check longtable vs. resizebox
+  if (isTRUE(longtable) && !is.null(resizebox)) {
+    resizebox <- NULL
+    warning(paste("'longtable' and 'resizebox' are not compatible. Setting resizebox = NULL."))
+  }
+
+  # check resizebox vs. scalebox
+  if (!is.null(resizebox) && !is.null(scalebox)) {
+    scalebox <- NULL
+    warning(paste("'resizebox' and 'scalebox' are not compatible. Setting scalebox = NULL."))
   }
 
   # check table vs. tabular
@@ -3323,7 +3336,7 @@ texreg <- function(l,
         string <- paste0(string, "\\usepackage{threeparttable}", linesep)
       }
     }
-    if (!is.null(scalebox) || isTRUE(dcolumn) || isTRUE(siunitx) || isTRUE(booktabs) || isTRUE(sideways) || isTRUE(longtable) || isTRUE(threeparttable)) {
+    if (!is.null(resizebox) || !is.null(scalebox) || isTRUE(dcolumn) || isTRUE(siunitx) || isTRUE(booktabs) || isTRUE(sideways) || isTRUE(longtable) || isTRUE(threeparttable)) {
       string <- paste0(string, linesep)
     }
   }
@@ -3430,6 +3443,15 @@ texreg <- function(l,
       }
       if (!is.null(scalebox)) {
         string <- paste0(string, "\\scalebox{", scalebox, "}{", linesep)
+      }
+      if (!is.null(resizebox)) {
+        if (length(resizebox) == 1) {
+          string <- paste0(string, "\\resizebox{", resizebox, "}{*}{", linesep)  
+        } else if (length(resizebox) > 1) {
+          xwidth <- ifelse(is.na(resizebox[1]) | is.null(resizebox[1]) | resizebox[1] = 0 | resizebox[1] = "", "*", resizebox[1])
+          yheight <- ifelse(is.na(resizebox[2]) | is.null(resizebox[2]) | resizebox[2] = 0 | resizebox[2] = "", "*", resizebox[2])
+          string <- paste0(string, "\\resizebox{", xwidth, "}{", yheight, "}{", linesep)
+        }
       }
     }
     if (isTRUE(siunitx)) {
@@ -3695,6 +3717,9 @@ texreg <- function(l,
       string <- paste0(string, "\\end{", fontsize, "}", linesep)
     }
     if (!is.null(scalebox)) {
+      string <- paste0(string, "}", linesep)
+    }
+    if (!is.null(resizebox)) {
       string <- paste0(string, "}", linesep)
     }
     if (isFALSE(caption.above)) {
