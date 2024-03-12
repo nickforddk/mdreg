@@ -3448,8 +3448,8 @@ texreg <- function(l,
         if (length(resizebox) == 1) {
           string <- paste0(string, "\\resizebox{", resizebox, "}{*}{", linesep)  
         } else if (length(resizebox) > 1) {
-          xwidth <- ifelse(is.na(resizebox[1]) | is.null(resizebox[1]) | resizebox[1] = 0 | resizebox[1] = "", "*", resizebox[1])
-          yheight <- ifelse(is.na(resizebox[2]) | is.null(resizebox[2]) | resizebox[2] = 0 | resizebox[2] = "", "*", resizebox[2])
+          xwidth <- ifelse(is.na(resizebox[1]) | is.null(resizebox[1]) | resizebox[1] == 0 | resizebox[1] == "", "*", resizebox[1])
+          yheight <- ifelse(is.na(resizebox[2]) | is.null(resizebox[2]) | resizebox[2] == 0 | resizebox[2] == "", "*", resizebox[2])
           string <- paste0(string, "\\resizebox{", xwidth, "}{", yheight, "}{", linesep)
         }
       }
