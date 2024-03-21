@@ -3843,7 +3843,7 @@ wordreg <- function(l,
                    custom.columns = custom.columns,
                    custom.col.pos = custom.col.pos,
                    output.type = "ascii",
-                   include.attributes = FALSE,
+                   include.attributes = TRUE,
                    trim = TRUE,
                    ...
   )
