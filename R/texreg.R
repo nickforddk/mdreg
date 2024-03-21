@@ -3853,8 +3853,49 @@ wordreg <- function(l,
   } else {
     dvnames <- NA
   }
+
+  # set caption
+  if (is.null(caption)) {
+    caption <- ""
+  }
+  if (length(caption) > 1) {
+    caption <- caption[1]
+    warning("'caption' is supposed to be a character object of length 1. Using only the first element.")
+  }
+  if (is.na(caption)) {
+    caption <- ""
+  }
+  if (!is.character(caption)) {
+    caption <- as.character(caption)
+  }
+  if (caption != "") {
+    cap <- paste0("Table: ", caption, "\n")
+  } else {
+    cap <- ""
+  }
+  
+  # stars note
+  snote <- get_stars_note(stars = stars,
+                          star.symbol = star.symbol,
+                          symbol = symbol,
+                          ci = ci,
+                          ci.test = ci.test,
+                          output = "ascii")
+
+  if (is.null(custom.note)) {
+    note <- snote
+  } else if (custom.note == "") {
+    note <- ""
+  } else {
+    note <- custom.note
+    note <- gsub("%stars", snote, note)
+    note <- paste("\n", note)
+  }
+  
   cat(file = f, "```{r, echo = FALSE}
+                    cap
                     knitr::kable(mat, col.names = dvnames)
+                    note
                     ```", append = TRUE)
   rmarkdown::render(f, output_file = paste0(wd, "/", file))
 }
