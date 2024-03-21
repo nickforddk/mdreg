@@ -3899,8 +3899,8 @@ wordreg <- function(l,
   cat(file = f, 
       cap, 
       "```{r, echo = FALSE}
-      knitr::kable(mat, col.names = dvnames)
-      ```", 
+knitr::kable(mat, col.names = dvnames)
+```", 
       note, 
       sep = "\n", append = TRUE)
   rmarkdown::render(f, output_file = paste0(wd, "/", file))
