@@ -3847,6 +3847,9 @@ wordreg <- function(l,
                    trim = TRUE,
                    ...
   )
+  ci <- attr(mat, "ci")
+  ci.test <- attr(mat, "ci.test")
+  
   wd <- getwd()
   f = tempfile(fileext = ".Rmd")
   if (!all(mat[1, ] == "")) { # column names for kable
