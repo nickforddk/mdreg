@@ -3874,7 +3874,7 @@ wordreg <- function(l,
     caption <- as.character(caption)
   }
   if (caption != "") {
-    cap <- paste0("Table: ", caption, "\n")
+    cap <- paste0("Table: ", caption)
   } else {
     cap <- ""
   }
@@ -3894,16 +3894,15 @@ wordreg <- function(l,
   } else {
     note <- custom.note
     note <- gsub("%stars", snote, note)
-    note <- paste("\n", note)
   }
   
   cat(file = f, 
       cap, 
       "```{r, echo = FALSE}
-          knitr::kable(mat, col.names = dvnames)
-          ```", 
+      knitr::kable(mat, col.names = dvnames)
+      ```", 
       note, 
-      sep = "", append = TRUE)
+      sep = "\n", append = TRUE)
   rmarkdown::render(f, output_file = paste0(wd, "/", file))
 }
 
