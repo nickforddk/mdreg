@@ -3787,6 +3787,7 @@ wordreg <- function(l,
                     custom.coef.map = NULL,
                     custom.gof.names = NULL,
                     custom.gof.rows = NULL,
+                    custom.note = NULL,
                     digits = 2,
                     leading.zero = TRUE,
                     star.symbol = "*",
@@ -3805,6 +3806,7 @@ wordreg <- function(l,
                     groups = NULL,
                     custom.columns = NULL,
                     custom.col.pos = NULL,
+                    caption = NULL,
                     ...) {
 
   if (!requireNamespace("rmarkdown", quietly = TRUE)) {
