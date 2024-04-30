@@ -1432,6 +1432,11 @@ matrixreg <- function(l,
     } else {
       mod.names[i] <- paste("Model", i)
     }
+    
+    if (output.type[1] == "latex") {
+      mod.names[i] <- names2latex(mod.names[i])
+    } else {
+    }
   }
 
   # reorder coef matrix
